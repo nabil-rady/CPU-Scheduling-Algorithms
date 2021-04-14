@@ -1,19 +1,14 @@
 import numpy as np
 
-def handle_priority(processes,finished_processes,x_ticks):
+def handle_priority(processes,finished_processes,x_ticks,processes_arrival_times):
     # get the last executed process
-    prev = {
-        'name': processes[0]['name'],
-        'priority': processes[0]['priority'],
-        'burst_time': processes[0]['burst_time'],
-        'const_arrival_time': processes[0]['const_arrival_time']
-    }
+    prev = processes[0]
 
     finished_processes.append(prev)
     processes.pop(0)
     
     # to calculate the waiting time and complete the gantt_chart
-    finished_processes[0] += x_ticks[len(x_ticks) - 1] - prev['const_arrival_time']
+    finished_processes[0] += x_ticks[len(x_ticks) - 1] - processes_arrival_times[prev['name']]
     time = x_ticks[len(x_ticks) - 1] + prev['burst_time']
     x_ticks.append(time)
 
@@ -38,19 +33,21 @@ def handle_priority(processes,finished_processes,x_ticks):
 # }
 # processes = [{}, {}, ......]
 
-def priority_np(processes):
-    # using global variables
-    finished_processes = [0]
-    x_ticks = [0]
-    
+def priority_np(processes): 
+    for i in range(len(processes)):
+        processes[i] = processes[i].copy()   
+    finished_processes = [0]    
+    processes_arrival_times = {
+        process['name']:process['arrival_time'] for process in processes
+    }
     # make sure that the processes is sorted base on their priority
     processes = sorted(processes, key=lambda k: (k['arrival_time'], k['priority'], k['burst_time']))
-    
+    x_ticks = [processes[0]['arrival_time']]     # Shift time to lowest arrival time
     n = len(processes)
     i = n
     
     while i > 0:
-        processes = handle_priority(processes,finished_processes,x_ticks)
+        processes = handle_priority(processes,finished_processes,x_ticks,processes_arrival_times)
         i-=1
 
     average_waiting_time = finished_processes[0] / n
@@ -60,6 +57,6 @@ def priority_np(processes):
         processes_names.append(finished_processes[i]['name'])
 
 
-    return average_waiting_time, np.asanyarray(processes_names), np.asarray(x_ticks)
+    return average_waiting_time, processes_names, np.asarray(x_ticks)
 
 
