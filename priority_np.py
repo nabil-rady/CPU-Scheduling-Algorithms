@@ -38,9 +38,6 @@ def handle_priority(processes,finished_processes,x_ticks):
 # }
 # processes = [{}, {}, ......]
 
-# the return array contains average waiting at index 0,
-# the gantt_chart times at the last elemet
-
 def priority_np(processes):
     # using global variables
     finished_processes = [0]
