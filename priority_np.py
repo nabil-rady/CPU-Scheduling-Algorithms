@@ -25,14 +25,6 @@ def handle_priority(processes,finished_processes,x_ticks,processes_arrival_times
 
 
 
-# The priority_np function arguments
-
-# process = {
-#     burst_time: ,
-#     priority:
-# }
-# processes = [{}, {}, ......]
-
 def priority_np(processes): 
     for i in range(len(processes)):
         processes[i] = processes[i].copy()   
