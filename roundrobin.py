@@ -40,4 +40,4 @@ def roundrobin(processes,time_quantum):
                     last_time_checked[counter]=current_time
         counter = (counter+1)%number_of_processes
         average_waiting_time = sum(waiting_time)/len(waiting_time)
-    return average_waiting_time,processes_names,np.asarray(x_ticks)
+    return round(average_waiting_time, 2), processes_names, np.asarray(x_ticks)

@@ -57,6 +57,6 @@ def priority_np(processes):
         processes_names.append(finished_processes[i]['name'])
 
 
-    return average_waiting_time, processes_names, np.asarray(x_ticks)
+    return round(average_waiting_time, 2), processes_names, np.asarray(x_ticks)
 
 
