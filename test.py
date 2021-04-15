@@ -34,3 +34,4 @@ p7 = {'name': 'p7', 'arrival_time': 10, 'priority': 1, 'burst_time': 1}
 
 # priority preemptive
 print(*priority_p([p1,p2,p3,p4, p5, p6, p7]))
+
