@@ -42,65 +42,71 @@ def showWidgets(event):
     processNumberEntry.pack()
     processNumberEntry.insert(0, "Enter number of processes: ")
 
-    def processDetailsWidgets():
+    def process_details_widgets():
         # entry for process name
+        global processNameEntry
         processNameEntry = tk.Entry(processDetialsFrame, width=30, borderwidth=5)
         processNameEntry.pack()
         processNameEntry.insert(0, "Enter process name: ")
 
         # entry for arrival time
+        global arrivalTimeEntry
         arrivalTimeEntry = tk.Entry(processDetialsFrame, width=30, borderwidth=5)
         arrivalTimeEntry.pack()
         arrivalTimeEntry.insert(0, "Enter process arrival time: ")
 
         # entry for brust time
+        global brustTimeEntry
         brustTimeEntry = tk.Entry(processDetialsFrame, width=30, borderwidth=5)
         brustTimeEntry.pack()
         brustTimeEntry.insert(0, "Enter process brust time: ")
 
+        #entry for process priority
+        global priorityEntry
         if selectedAlgorithm.get() == schedulingAlgorithms[4] or selectedAlgorithm.get() == schedulingAlgorithms[5]:
-            priorityTimeEntry = tk.Entry(processDetialsFrame, width=30, borderwidth=5)
-            priorityTimeEntry.pack()
-            priorityTimeEntry.insert(0, "Enter process priority: ")
-        
-        def submitProcessDetails():
-            name = processNameEntry.get()
-            arrivalTime = arrivalTimeEntry.get()
-            brustTime = brustTimeEntry.get()
-
-            if selectedAlgorithm.get() == schedulingAlgorithms[4] or selectedAlgorithm.get() == schedulingAlgorithms[5]:
-                priority = priorityTimeEntry.get()
-                processDetails.append (
-                    {
-                        'name' : name[20:],
-                        'arrival_time' : int(arrivalTime[27:]),
-                        'brust_time' : int (brustTime[25:]),
-                        'priority' : int(priority[23:])
-                    }
-                )
-            else :
-                processDetails.append (
-                    {
-                        'name' : name[20:],
-                        'arrival_time' : int(arrivalTime[27:]),
-                        'brust_time' : int (brustTime[25:])
-                    }
-                )
-
-            processDetialsFrame.pack_forget()
-            processDetialsFrame.destroy()
+            priorityEntry = tk.Entry(processDetialsFrame, width=30, borderwidth=5)
+            priorityEntry.pack()
+            priorityEntry.insert(0, "Enter process priority: ")
         
         processDetailsButton = tk.Button(processDetialsFrame, text="submit", command=submitProcessDetails)
         processDetailsButton.pack()
+        
+    def submitProcessDetails():
+        name = processNameEntry.get()
+        arrivalTime = arrivalTimeEntry.get()
+        brustTime = brustTimeEntry.get()
 
-
+        if selectedAlgorithm.get() == schedulingAlgorithms[4] or selectedAlgorithm.get() == schedulingAlgorithms[5]:
+            priority = priorityEntry.get()
+            processDetails.append (
+                {
+                    'name' : name[20:],
+                    'arrival_time' : int(arrivalTime[27:]),
+                    'brust_time' : int (brustTime[25:]),
+                    'priority' : int(priority[23:])
+                }
+            )
+        else :
+            processDetails.append (
+                {
+                    'name' : name[20:],
+                    'arrival_time' : int(arrivalTime[27:]),
+                    'brust_time' : int (brustTime[25:])
+                }
+            )
+        processNameEntry.delete(20, 'end')
+        arrivalTimeEntry.delete(27, 'end')
+        brustTimeEntry.delete(25, 'end')
+        if selectedAlgorithm.get() == schedulingAlgorithms[4] or selectedAlgorithm.get() == schedulingAlgorithms[5]:
+            priorityEntry.delete(23, 'end')
+        
     # Submit button for the entered process number.
     def submitProcessNumber():
         global processNumber
         processNumber = processNumberEntry.get()
         processFrame.pack_forget()
         processFrame.destroy()
-        processDetailsWidgets()
+        process_details_widgets()
 
     processNumberButton = tk.Button(processFrame, text="submit", command=submitProcessNumber)
     processNumberButton.pack()
