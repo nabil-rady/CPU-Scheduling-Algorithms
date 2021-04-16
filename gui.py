@@ -9,7 +9,7 @@ root.title('CPU scheduling algorithms')
 root.geometry("500x500")
 
 # Storing all CPU scheduling algorithms in a list.
-schedulingAlgorithms = [
+scheduling_algorithms = [
     "First-Come, First-Served",
     "Shorted-Job-First Preemptive",
     "Shorted-Job-First Non Preemptive",
@@ -22,105 +22,107 @@ schedulingAlgorithms = [
 global widgets
 widgets = []
 
-def showWidgets(event):
+def show_widgets(event):
     global widgets
     for widget in widgets[:]:
         widget.destroy()
         widgets.remove(widget)
     
     # storing process information in a list of dictionary
-    processDetails = []
+    process_details = []
 
     # Frame for the process number.
-    processFrame = tk.LabelFrame(root, padx=5, pady=5)
+    process_frame = tk.LabelFrame(root, padx=5, pady=5)
 
     # Frame for the information/detials of each process.
-    processDetialsFrame = tk.LabelFrame(root, padx=10, pady=10)
+    process_detials_frame = tk.LabelFrame(root, padx=10, pady=10)
 
     # Input field for the number of avaliable processes.
-    processNumberEntry = tk.Entry(processFrame, width=30, borderwidth=5)
-    processNumberEntry.pack()
-    processNumberEntry.insert(0, "Enter number of processes: ")
+    process_number_entry = tk.Entry(process_frame, width=30, borderwidth=5)
+    process_number_entry.pack()
+    process_number_entry.insert(0, "Enter number of processes: ")
 
     def process_details_widgets():
         # entry for process name
-        global processNameEntry
-        processNameEntry = tk.Entry(processDetialsFrame, width=30, borderwidth=5)
-        processNameEntry.pack()
-        processNameEntry.insert(0, "Enter process name: ")
+        global process_name_entry
+        process_name_entry = tk.Entry(process_detials_frame, width=30, borderwidth=5)
+        process_name_entry.pack()
+        process_name_entry.insert(0, "Enter process name: ")
 
         # entry for arrival time
-        global arrivalTimeEntry
-        arrivalTimeEntry = tk.Entry(processDetialsFrame, width=30, borderwidth=5)
-        arrivalTimeEntry.pack()
-        arrivalTimeEntry.insert(0, "Enter process arrival time: ")
+        global arrival_time_entry
+        arrival_time_entry = tk.Entry(process_detials_frame, width=30, borderwidth=5)
+        arrival_time_entry.pack()
+        arrival_time_entry.insert(0, "Enter process arrival time: ")
 
         # entry for brust time
-        global brustTimeEntry
-        brustTimeEntry = tk.Entry(processDetialsFrame, width=30, borderwidth=5)
-        brustTimeEntry.pack()
-        brustTimeEntry.insert(0, "Enter process brust time: ")
+        global brust_time_entry
+        brust_time_entry = tk.Entry(process_detials_frame, width=30, borderwidth=5)
+        brust_time_entry.pack()
+        brust_time_entry.insert(0, "Enter process brust time: ")
 
         #entry for process priority
-        global priorityEntry
-        if selectedAlgorithm.get() == schedulingAlgorithms[4] or selectedAlgorithm.get() == schedulingAlgorithms[5]:
-            priorityEntry = tk.Entry(processDetialsFrame, width=30, borderwidth=5)
-            priorityEntry.pack()
-            priorityEntry.insert(0, "Enter process priority: ")
+        global priority_entry
+        if selected_algorithm.get() == scheduling_algorithms[4] or selected_algorithm.get() == scheduling_algorithms[5]:
+            priority_entry = tk.Entry(process_detials_frame, width=30, borderwidth=5)
+            priority_entry.pack()
+            priority_entry.insert(0, "Enter process priority: ")
         
-        processDetailsButton = tk.Button(processDetialsFrame, text="submit", command=submitProcessDetails)
-        processDetailsButton.pack()
+        process_details_button = tk.Button(process_detials_frame, text="submit", command=submitProcessDetails)
+        process_details_button.pack()
         
     def submitProcessDetails():
-        name = processNameEntry.get()
-        arrivalTime = arrivalTimeEntry.get()
-        brustTime = brustTimeEntry.get()
+        name = process_name_entry.get()
+        arrival_time = arrival_time_entry.get()
+        brust_time = brust_time_entry.get()
 
-        if selectedAlgorithm.get() == schedulingAlgorithms[4] or selectedAlgorithm.get() == schedulingAlgorithms[5]:
-            priority = priorityEntry.get()
-            processDetails.append (
+        if selected_algorithm.get() == scheduling_algorithms[4] or selected_algorithm.get() == scheduling_algorithms[5]:
+            priority = priority_entry.get()
+            process_details.append (
                 {
                     'name' : name[20:],
-                    'arrival_time' : int(arrivalTime[27:]),
-                    'brust_time' : int (brustTime[25:]),
+                    'arrival_time' : int(arrival_time[27:]),
+                    'brust_time' : int (brust_time[25:]),
                     'priority' : int(priority[23:])
                 }
             )
         else :
-            processDetails.append (
+            process_details.append (
                 {
                     'name' : name[20:],
-                    'arrival_time' : int(arrivalTime[27:]),
-                    'brust_time' : int (brustTime[25:])
+                    'arrival_time' : int(arrival_time[27:]),
+                    'brust_time' : int (brust_time[25:])
                 }
             )
-        processNameEntry.delete(20, 'end')
-        arrivalTimeEntry.delete(27, 'end')
-        brustTimeEntry.delete(25, 'end')
-        if selectedAlgorithm.get() == schedulingAlgorithms[4] or selectedAlgorithm.get() == schedulingAlgorithms[5]:
-            priorityEntry.delete(23, 'end')
+        process_name_entry.delete(20, 'end')
+        arrival_time_entry.delete(27, 'end')
+        brust_time_entry.delete(25, 'end')
+        if selected_algorithm.get() == scheduling_algorithms[4] or selected_algorithm.get() == scheduling_algorithms[5]:
+            priority_entry.delete(23, 'end')
+        # Testing that process fields are stored in process_details list
+        print(process_details)
         
     # Submit button for the entered process number.
-    def submitProcessNumber():
-        global processNumber
-        processNumber = processNumberEntry.get()
-        processFrame.pack_forget()
-        processFrame.destroy()
+    def submit_process_number():
+        global process_number
+        process_number = process_number_entry.get()
+        process_frame.pack_forget()
+        process_frame.destroy()
         process_details_widgets()
 
-    processNumberButton = tk.Button(processFrame, text="submit", command=submitProcessNumber)
-    processNumberButton.pack()
+    process_number_button = tk.Button(process_frame, text="submit", command=submit_process_number)
+    process_number_button.pack()
 
-    widgets = widgets[:] + [processFrame, processDetialsFrame]
+    widgets = widgets[:] + [process_frame, process_detials_frame]
     for widget in widgets:
         widget.pack()
 
 
 # Drop Down Menu
-selectedAlgorithm = tk.StringVar()
-selectedAlgorithm.set(schedulingAlgorithms[0])
+selected_algorithm = tk.StringVar()
+selected_algorithm.set(scheduling_algorithms[0])
 
-dropMenu = tk.OptionMenu(root, selectedAlgorithm, *schedulingAlgorithms, command=showWidgets)
-dropMenu.pack(pady=10)
+drop_menu = tk.OptionMenu(root, selected_algorithm, *scheduling_algorithms, command=show_widgets)
+drop_menu.pack(pady=10)
 
 root.mainloop()
