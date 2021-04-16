@@ -41,37 +41,46 @@ def show_widgets(event):
     process_number_entry = tk.Entry(process_frame, width=30, borderwidth=5)
     process_number_entry.pack()
     process_number_entry.insert(0, "Enter number of processes: ")
+    
+    global count
+    count = 1
 
     def process_details_widgets():
+        # display process number 
+        global process_number_label
+        process_number_label = tk.Label(process_detials_frame, text = 'Process #{}'.format(count))
+        process_number_label.grid(row=0, column=1)
+
         # entry for process name
-        process_name_label = tk.Label(process_detials_frame, text = 'Enter process name:').grid(row=0, column=0, padx=5)
+        process_name_label = tk.Label(process_detials_frame, text = 'Enter process name:').grid(row=1, column=0, padx=5)
         global process_name_entry
         process_name_entry = tk.Entry(process_detials_frame, width=15, borderwidth=5)
-        process_name_entry.grid(row=0, column=1, padx=5)
+        process_name_entry.grid(row=1, column=1, padx=5)
 
         # entry for arrival time
-        arrival_time_label = tk.Label(process_detials_frame, text = 'Enter process arrival time:').grid(row=1, column=0, padx=5)
+        arrival_time_label = tk.Label(process_detials_frame, text = 'Enter process arrival time:').grid(row=2, column=0, padx=5)
         global arrival_time_entry
         arrival_time_entry = tk.Entry(process_detials_frame, width=15, borderwidth=5)
-        arrival_time_entry.grid(row=1, column=1, padx=5)
+        arrival_time_entry.grid(row=2, column=1, padx=5)
 
         # entry for brust time
-        brust_time_label = tk.Label(process_detials_frame, text = 'Enter process brust time:').grid(row=2, column=0, padx=5)
+        brust_time_label = tk.Label(process_detials_frame, text = 'Enter process brust time:').grid(row=3, column=0, padx=5)
         global brust_time_entry
         brust_time_entry = tk.Entry(process_detials_frame, width=15, borderwidth=5)
-        brust_time_entry.grid(row=2, column=1, padx=5)
+        brust_time_entry.grid(row=3, column=1, padx=5)
 
         #entry for process priority
         global priority_entry
         if selected_algorithm.get() == scheduling_algorithms[4] or selected_algorithm.get() == scheduling_algorithms[5]:
-            brust_time_label = tk.Label(process_detials_frame, text = 'Enter process priority:').grid(row=3, column=0, padx=5)
+            brust_time_label = tk.Label(process_detials_frame, text = 'Enter process priority:').grid(row=4, column=0, padx=5)
             priority_entry = tk.Entry(process_detials_frame, width=15, borderwidth=5)
-            priority_entry.grid(row=3, column=1, padx=5)
+            priority_entry.grid(row=4, column=1, padx=5)
         
-        process_details_button = tk.Button(process_detials_frame, text="submit", command=submitProcessDetails)
-        process_details_button.grid(row=4, column=1)
+        process_details_button = tk.Button(process_detials_frame, text="submit", command=submit_process_details)
+        process_details_button.grid(row=5, column=1)
         
-    def submitProcessDetails():
+    def submit_process_details():
+        global count
         name = process_name_entry.get()
         arrival_time = arrival_time_entry.get()
         brust_time = brust_time_entry.get()
@@ -94,6 +103,8 @@ def show_widgets(event):
                     'brust_time' : int (brust_time)
                 }
             )
+        count += 1
+        process_number_label.config(text='Process #{}'.format(count))
         process_name_entry.delete(0, 'end')
         arrival_time_entry.delete(0, 'end')
         brust_time_entry.delete(0, 'end')
