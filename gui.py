@@ -18,7 +18,7 @@ scheduling_algorithms = [
     "Priority Non Preemptive"
 ]
 
- # This list will contain widgets to be deleted
+# This list will contain widgets to be deleted
 global widgets
 widgets = []
 
@@ -44,32 +44,32 @@ def show_widgets(event):
 
     def process_details_widgets():
         # entry for process name
+        process_name_label = tk.Label(process_detials_frame, text = 'Enter process name:').grid(row=0, column=0, padx=5)
         global process_name_entry
-        process_name_entry = tk.Entry(process_detials_frame, width=30, borderwidth=5)
-        process_name_entry.pack()
-        process_name_entry.insert(0, "Enter process name: ")
+        process_name_entry = tk.Entry(process_detials_frame, width=15, borderwidth=5)
+        process_name_entry.grid(row=0, column=1, padx=5)
 
         # entry for arrival time
+        arrival_time_label = tk.Label(process_detials_frame, text = 'Enter process arrival time:').grid(row=1, column=0, padx=5)
         global arrival_time_entry
-        arrival_time_entry = tk.Entry(process_detials_frame, width=30, borderwidth=5)
-        arrival_time_entry.pack()
-        arrival_time_entry.insert(0, "Enter process arrival time: ")
+        arrival_time_entry = tk.Entry(process_detials_frame, width=15, borderwidth=5)
+        arrival_time_entry.grid(row=1, column=1, padx=5)
 
         # entry for brust time
+        brust_time_label = tk.Label(process_detials_frame, text = 'Enter process brust time:').grid(row=2, column=0, padx=5)
         global brust_time_entry
-        brust_time_entry = tk.Entry(process_detials_frame, width=30, borderwidth=5)
-        brust_time_entry.pack()
-        brust_time_entry.insert(0, "Enter process brust time: ")
+        brust_time_entry = tk.Entry(process_detials_frame, width=15, borderwidth=5)
+        brust_time_entry.grid(row=2, column=1, padx=5)
 
         #entry for process priority
         global priority_entry
         if selected_algorithm.get() == scheduling_algorithms[4] or selected_algorithm.get() == scheduling_algorithms[5]:
-            priority_entry = tk.Entry(process_detials_frame, width=30, borderwidth=5)
-            priority_entry.pack()
-            priority_entry.insert(0, "Enter process priority: ")
+            brust_time_label = tk.Label(process_detials_frame, text = 'Enter process priority:').grid(row=3, column=0, padx=5)
+            priority_entry = tk.Entry(process_detials_frame, width=15, borderwidth=5)
+            priority_entry.grid(row=3, column=1, padx=5)
         
         process_details_button = tk.Button(process_detials_frame, text="submit", command=submitProcessDetails)
-        process_details_button.pack()
+        process_details_button.grid(row=4, column=1)
         
     def submitProcessDetails():
         name = process_name_entry.get()
@@ -80,25 +80,25 @@ def show_widgets(event):
             priority = priority_entry.get()
             process_details.append (
                 {
-                    'name' : name[20:],
-                    'arrival_time' : int(arrival_time[27:]),
-                    'brust_time' : int (brust_time[25:]),
-                    'priority' : int(priority[23:])
+                    'name' : name,
+                    'arrival_time' : int(arrival_time),
+                    'brust_time' : int (brust_time),
+                    'priority' : int(priority)
                 }
             )
         else :
             process_details.append (
                 {
-                    'name' : name[20:],
-                    'arrival_time' : int(arrival_time[27:]),
-                    'brust_time' : int (brust_time[25:])
+                    'name' : name,
+                    'arrival_time' : int(arrival_time),
+                    'brust_time' : int (brust_time)
                 }
             )
-        process_name_entry.delete(20, 'end')
-        arrival_time_entry.delete(27, 'end')
-        brust_time_entry.delete(25, 'end')
+        process_name_entry.delete(0, 'end')
+        arrival_time_entry.delete(0, 'end')
+        brust_time_entry.delete(0, 'end')
         if selected_algorithm.get() == scheduling_algorithms[4] or selected_algorithm.get() == scheduling_algorithms[5]:
-            priority_entry.delete(23, 'end')
+            priority_entry.delete(0, 'end')
         # Testing that process fields are stored in process_details list
         print(process_details)
         
