@@ -18,13 +18,24 @@ schedulingAlgorithms = [
     "Priority Non Preemptive"
 ]
 
+ # This list will contain widgets to be deleted
+global widgets
+widgets = []
+
 def showWidgets(event):
+    global widgets
+    for widget in widgets[:]:
+        widget.destroy()
+        widgets.remove(widget)
+    
     # storing process information in a list of dictionary
     processDetails = []
 
     # Frame for the process number.
     processFrame = tk.LabelFrame(root, padx=5, pady=5)
-    processFrame.pack(padx=5, pady=5)  
+
+    # Frame for the information/detials of each process.
+    processDetialsFrame = tk.LabelFrame(root, padx=10, pady=10)
 
     # Input field for the number of avaliable processes.
     processNumberEntry = tk.Entry(processFrame, width=30, borderwidth=5)
@@ -32,10 +43,6 @@ def showWidgets(event):
     processNumberEntry.insert(0, "Enter number of processes: ")
 
     def processDetailsWidgets():
-        # Frame for the information/detials of each process.
-        processDetialsFrame = tk.LabelFrame(root, padx=10, pady=10)
-        processDetialsFrame.pack(padx=10, pady=10)
-
         # entry for process name
         processNameEntry = tk.Entry(processDetialsFrame, width=30, borderwidth=5)
         processNameEntry.pack()
@@ -97,6 +104,10 @@ def showWidgets(event):
 
     processNumberButton = tk.Button(processFrame, text="submit", command=submitProcessNumber)
     processNumberButton.pack()
+
+    widgets = widgets[:] + [processFrame, processDetialsFrame]
+    for widget in widgets:
+        widget.pack()
 
 
 # Drop Down Menu
