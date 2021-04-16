@@ -38,9 +38,9 @@ def show_widgets(event):
     process_detials_frame = tk.LabelFrame(root, padx=10, pady=10)
 
     # Input field for the number of avaliable processes.
-    process_number_entry = tk.Entry(process_frame, width=30, borderwidth=5)
-    process_number_entry.pack()
-    process_number_entry.insert(0, "Enter number of processes: ")
+    process_name_label = tk.Label(process_frame, text = 'Enter number of processes: ').grid(row=0, column=0, padx=5)
+    process_number_entry = tk.Entry(process_frame, width=15, borderwidth=5)
+    process_number_entry.grid(row=0, column=1, padx=5)
     
     global count
     count = 1
@@ -81,6 +81,7 @@ def show_widgets(event):
         
     def submit_process_details():
         global count
+        count += 1
         name = process_name_entry.get()
         arrival_time = arrival_time_entry.get()
         brust_time = brust_time_entry.get()
@@ -103,7 +104,6 @@ def show_widgets(event):
                     'brust_time' : int (brust_time)
                 }
             )
-        count += 1
         process_number_label.config(text='Process #{}'.format(count))
         process_name_entry.delete(0, 'end')
         arrival_time_entry.delete(0, 'end')
@@ -122,7 +122,7 @@ def show_widgets(event):
         process_details_widgets()
 
     process_number_button = tk.Button(process_frame, text="submit", command=submit_process_number)
-    process_number_button.pack()
+    process_number_button.grid(row = 1, column=1)
 
     widgets = widgets[:] + [process_frame, process_detials_frame]
     for widget in widgets:
