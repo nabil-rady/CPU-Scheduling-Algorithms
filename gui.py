@@ -1,8 +1,8 @@
-from roundrobin import roundrobin
-from priority_np import priority_np
-from priority_p import priority_p
+from algorithms.roundrobin import roundrobin
+from algorithms.priority_np import priority_np
+from algorithms.priority_p import priority_p
 
-import Tkinter as tk
+import tkinter as tk
 
 root = tk.Tk()
 root.title('CPU scheduling algorithms')

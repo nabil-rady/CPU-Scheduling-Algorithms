@@ -1,47 +1,54 @@
 # Importing the matplotlb.pyplot
-import matplotlib.pyplot as plt
-from priority_p import priority_p 
-  
+import matplotlib.pyplot as plt 
+import random
+# colors
+colors = ['black' , 'aqua' , 'orange','teal' , 'chocolate','maroon','darkmagenta','gold','orchid' , 'green' , 'palegreen' , 'gray' , 'greenyellow' ,'yellow' , 'deeppink' ,'darkviolet' , 'blue' , 'darkblue' ,'darkcyan' , 'crimson' ,'red', 'olive','turquoise']
+
+def assign_colors(processes):
+    colors_of_processes = dict()
+    used_colors = dict()
+    for process in processes:
+        color = random.choice(colors)
+        while color in used_colors:
+            color = random.choice(colors)
+        used_colors[color] = None
+        colors_of_processes[process] = color
+    return colors_of_processes
 # Declaring a figure "gnt"
 fig, gnt = plt.subplots()
   
-# Setting Y-axis limits
-gnt.set_ylim(0, 1)
 
-# test the gantt chart  
-p1 = {'name': 'p1', 'arrival_time': 0, 'priority': 3, 'burst_time': 8}
-p2 = {'name': 'p2', 'arrival_time': 1, 'priority': 4, 'burst_time': 2}
-p3 = {'name': 'p3', 'arrival_time': 3, 'priority': 4, 'burst_time': 4}
-p4 = {'name': 'p4', 'arrival_time': 4, 'priority': 5, 'burst_time': 1}
-p5 = {'name': 'p5', 'arrival_time': 5, 'priority': 2, 'burst_time': 6}
-p6 = {'name': 'p6', 'arrival_time': 6, 'priority': 6, 'burst_time': 5}
-p7 = {'name': 'p7', 'arrival_time': 10, 'priority': 1, 'burst_time': 1}
+def gantt_chart(processes, x_ticks):
+    processes_names = sorted(list(set(processes)))
+    colors_of_processes = assign_colors(processes)  
 
-results = priority_p([p1, p2, p3, p4, p5, p6, p7])
+    processes_start = []
 
+    for i in range(len(processes_names)):
+        p = {
+            'name': processes_names[i],
+            'start': i + 1
+        }
+        processes_start.append(p)
 
+    # Setting labels for x-axis and y-axis
+    gnt.set_xlabel('Time')
+    gnt.set_ylabel('Processes line')
+    
+    # Setting ticks on x-axis
+    gnt.set_xticks([2*i for i in range(max(x_ticks) + 4)])
+    gnt.set_yticks([0.5 * i for i in range(1,len(processes_names)+ 1)])
+    # Setting graph attribute
+    gnt.grid(True)
 
-# Setting labels for x-axis and y-axis
-gnt.set_xlabel('Time')
-gnt.set_ylabel('Processes line')
-  
-# Setting ticks on x-axis
-x_ticks = []
-
-for i in range(1, len(results[2])):
-    x_ticks.append(results[2][i])
-
-gnt.set_xticks(x_ticks)
-  
-# Setting graph attribute
-gnt.grid(True)
-
-# colors
-color = ['orange', 'red', 'green', 'blue', 'black', 'pink', 'gray', 'orange', 'red', 'green', 'blue', 'black', 'pink', 'gray']
-
-# Declaring a bar in schedule
-for i in range(len(results[1])):
-    gnt.broken_barh([(results[2][i], results[2][i + 1])], (0, 1), facecolors =color[i])
-
-  
-plt.savefig("gantt_cahrt.png")
+    facecolors = [colors_of_processes[process_name] for process_name in processes]
+    # Declaring a bar in schedule
+    for i in range(len(processes)):
+        start = 0
+        for process_start in processes_start:
+            if process_start['name'] == processes[i]:
+                start = process_start['start'] 
+                break
+        gnt.broken_barh([(x_ticks[i], x_ticks[i + 1]-x_ticks[i])], (0.5*(start-len(processes_names)/20), len(processes_names)/20), facecolors = facecolors[i], label=processes)
+    gnt.set_yticklabels(processes_names)
+    plt.show()
