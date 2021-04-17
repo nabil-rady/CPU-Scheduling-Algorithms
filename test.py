@@ -29,12 +29,12 @@ from SJF import SJF
 # p7 = {'name': 'p7', 'arrival_time': 10, 'priority': 1, 'burst_time': 1}
 
 
-p1 = {'name': 'p1', 'arrival_time': 4, 'priority': 3, 'burst_time': 5}
-p2 = {'name': 'p2', 'arrival_time': 4, 'priority': 4, 'burst_time': 9}
-p3 = {'name': 'p3', 'arrival_time': 4, 'priority': 4, 'burst_time': 3}
-p4 = {'name': 'p4', 'arrival_time': 4, 'priority': 5, 'burst_time': 6}
-p5 = {'name': 'p5', 'arrival_time': 4, 'priority': 2, 'burst_time': 2}
-p6 = {'name': 'p6', 'arrival_time': 4, 'priority': 6, 'burst_time': 4}
+p1 = {'name': 'p1', 'arrival_time': 5, 'priority': 3, 'burst_time': 5}
+p2 = {'name': 'p2', 'arrival_time': 2, 'priority': 4, 'burst_time': 9}
+p3 = {'name': 'p3', 'arrival_time': 3, 'priority': 4, 'burst_time': 3}
+p4 = {'name': 'p4', 'arrival_time': 2, 'priority': 5, 'burst_time': 6}
+p5 = {'name': 'p5', 'arrival_time': 7, 'priority': 2, 'burst_time': 2}
+p6 = {'name': 'p6', 'arrival_time': 10, 'priority': 6, 'burst_time': 4}
 
 
 
