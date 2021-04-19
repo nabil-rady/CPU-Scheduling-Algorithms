@@ -38,10 +38,12 @@ p7 = {'name': 'p7', 'arrival_time': 11, 'priority': 1, 'burst_time': 1}
 # print(*priority_p([p1,p2,p3,p4, p5, p6, p7]))
 
 # FCFS
-print(*FCFS([p1, p2, p3, p4, p5, p6, p7]))
-print(p1,p2,p3,p4,p5,p6,p7)
+#print(*FCFS([p1, p2, p3, p4, p5, p6, p7]))
+#print(p1,p2,p3,p4,p5,p6,p7)
 
 
 # test the gantt chart
-average_waiting_time , processes, x_ticks= priority_p([p1, p2, p3,p4,p5,p6,p7])
-gantt_chart(processes, x_ticks)
+#average_waiting_time , processes, x_ticks= priority_p([p1, p2, p3,p4,p5,p6,p7])
+#gantt_chart(processes, x_ticks)
+print(*roundrobin([{'name': 'ssd', 'arrival_time': 1, 'burst_time': 3}, {'name': 'ss', 'arrival_time': 7, 'burst_time': 2}, {'name': 'u', 'arrival_time': 8, 'burst_time': 3}]))
+

@@ -13,12 +13,11 @@ def assign_colors(processes):
             color = random.choice(colors)
         used_colors[color] = None
         colors_of_processes[process] = color
-    return colors_of_processes
-# Declaring a figure "gnt"
-fig, gnt = plt.subplots()
-  
+    return colors_of_processes  
 
 def gantt_chart(processes, x_ticks):
+    # Declaring a figure "gnt"
+    fig, gnt = plt.subplots()
     processes_names = sorted(list(set(processes)))
     colors_of_processes = assign_colors(processes)  
 
