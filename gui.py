@@ -77,7 +77,7 @@ def show_widgets(event):
             priority_entry.grid(row=4, column=1, padx=5)
         
         process_details_button = tk.Button(process_details_frame, text="submit", command=submit_process_details)
-        process_details_button.grid(row=5, column=1, pady=5)
+        process_details_button.grid(row=5, column=1, pady=10)
 
     def delete_details_frame():
         process_details_frame.pack_forget()
@@ -86,10 +86,6 @@ def show_widgets(event):
     def submit_process_details():
         global count
         count += 1
-
-        if count > process_number:
-            delete_details_frame()
-            return
 
         name = process_name_entry.get()
         arrival_time = arrival_time_entry.get()
@@ -123,6 +119,10 @@ def show_widgets(event):
         # Testing that process fields are stored in process_details list
         print(process_details)
 
+        if count > process_number:
+            delete_details_frame()
+            return
+
     # Submit button for the entered process number.
     def submit_process_number():
         global process_number
@@ -133,7 +133,7 @@ def show_widgets(event):
         process_details_widgets()
 
     process_number_button = tk.Button(process_frame, text="submit", command=submit_process_number)
-    process_number_button.grid(row = 1, column=1, pady=5)
+    process_number_button.grid(row = 1, column=1, pady=10)
 
     widgets = widgets[:] + [process_frame, process_details_frame]
     for widget in widgets:
