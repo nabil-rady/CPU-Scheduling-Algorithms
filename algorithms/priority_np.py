@@ -1,6 +1,14 @@
 import numpy as np
 
 def handle_priority(processes,finished_processes,x_ticks,processes_arrival_times):
+    # check if the first arrival is not 0
+    if len(x_ticks) == 1 and x_ticks[0] > 0:
+        for i in range(len(processes)):
+            if processes[i]['arrival_time'] > x_ticks[0]:
+                processes[i]['arrival_time'] -= x_ticks[0]
+            else:
+                processes[i]['arrival_time'] = 0
+    
     # get the last executed process
     prev = processes[0]
 

@@ -28,14 +28,16 @@ p5 = {'name': 'p5', 'arrival_time': 6, 'priority': 2, 'burst_time': 6}
 p6 = {'name': 'p6', 'arrival_time': 7, 'priority': 6, 'burst_time': 5}
 p7 = {'name': 'p7', 'arrival_time': 11, 'priority': 1, 'burst_time': 1}
 
+negative_waiting_time = [{'name': 'sasa', 'arrival_time': 1, 'burst_time': 2, 'priority': 3}, {'name': 'aass', 'arrival_time': 2, 'burst_time': 3, 'priority': 6}]
+
 # roundrobin
 # print(*roundrobin([p1,p2,p3,p4],2))
 
 # priority non preemptive
-# print(*priority_np([p1,p2,p3,p4, p5, p6, p7]))
+print(*priority_np([p1, p2, p3, p4, p5, p6, p7]))
 
 # priority preemptive
-# print(*priority_p([p1,p2,p3,p4, p5, p6, p7]))
+# print(*priority_p([p1, p2, p3, p4, p5, p6, p7]))
 
 # FCFS
 #print(*FCFS([p1, p2, p3, p4, p5, p6, p7]))
@@ -45,5 +47,4 @@ p7 = {'name': 'p7', 'arrival_time': 11, 'priority': 1, 'burst_time': 1}
 # test the gantt chart
 #average_waiting_time , processes, x_ticks= priority_p([p1, p2, p3,p4,p5,p6,p7])
 #gantt_chart(processes, x_ticks)
-print(*roundrobin([{'name': 'ssd', 'arrival_time': 1, 'burst_time': 3}, {'name': 'ss', 'arrival_time': 7, 'burst_time': 2}, {'name': 'u', 'arrival_time': 8, 'burst_time': 3}]))
-
+# print(*roundrobin([{'name': 'ssd', 'arrival_time': 1, 'burst_time': 3}, {'name': 'ss', 'arrival_time': 7, 'burst_time': 2}, {'name': 'u', 'arrival_time': 8, 'burst_time': 3}]))

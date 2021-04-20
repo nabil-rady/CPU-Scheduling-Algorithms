@@ -1,15 +1,23 @@
 import numpy as np
 
 def handle_priority(processes,time_line_processes,x_ticks,processes_times, i, burst_total):
+    # check if the first arrival is not 0
+    if len(x_ticks) == 1 and x_ticks[0] > 0:
+        for i in range(len(processes)):
+            if processes[i]['arrival_time'] > x_ticks[0]:
+                processes[i]['arrival_time'] -= x_ticks[0]
+            else:
+                processes[i]['arrival_time'] = 0
+    
     # get the last executed process
     processes[0]['burst_time'] -= 1
     prev = processes[0]
     
     # manipulate the gantt chart
-    if len(time_line_processes) == 0 or prev['name'] != time_line_processes[len(time_line_processes) - 1]['name']:
+    if len(time_line_processes) == 0 or prev['name'] != time_line_processes[len(time_line_processes) - 1]['name']:  
         time_line_processes.append(prev)
-        x_ticks.append(burst_total - i + 1)
-            
+        x_ticks.append(x_ticks[len(x_ticks) - 1] + 1)
+
     else:
         x_ticks[len(x_ticks) - 1] += 1
 
