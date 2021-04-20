@@ -5,6 +5,7 @@ from algorithms.FCFS import FCFS
 from gantt_chart import gantt_chart
 
 import tkinter as tk
+from tkinter import messagebox
 
 root = tk.Tk()
 root.title('CPU scheduling algorithms')
@@ -48,7 +49,7 @@ def show_widgets(event):
     # Frame for the information/detials of each process.
     process_details_frame = tk.LabelFrame(root, padx=10, pady=10)
 
-    # Frame for waiting time.
+    # Frame for the algorithm waiting time.
     waiting_time_frame = tk.LabelFrame(root, padx=5, pady=5)
 
     # Input field for the number of avaliable processes.
@@ -121,9 +122,42 @@ def show_widgets(event):
         process_details_frame.destroy()
         execution_gantt_chart()
 
+    def clearInputEntries():
+        process_name_entry.delete(0, 'end')
+        arrival_time_entry.delete(0, 'end')
+        burst_time_entry.delete(0, 'end')
+        if selected_algorithm.get() == "Priority Non Preemptive" or selected_algorithm.get() == "Priority Preemptive":
+            priority_entry.delete(0, 'end')
+    
+    def isValidInput():
+        arrival_time = arrival_time_entry.get()
+        burst_time = burst_time_entry.get()
+
+        if not arrival_time.isdigit():
+            response = messagebox.showerror("Error", "Enter a positive number for the arrival time.")
+            if response == 'ok':
+                return False
+        elif not burst_time.isdigit():
+            response = messagebox.showerror("Error", "Enter a positive number for the brust time.")
+            if response == 'ok':
+                return False
+        elif selected_algorithm.get() == "Priority Non Preemptive" or selected_algorithm.get() == "Priority Preemptive":
+            priority = priority_entry.get()
+            if not priority.isdigit():
+                response = messagebox.showerror("Error", "Enter a positive number for the process priority.")
+                if response == 'ok':
+                    return False
+        return True
+        
+
     def submit_process_details():
         global count
         count += 1
+
+        if not isValidInput():
+            count -= 1
+            clearInputEntries()
+            return
 
         name = process_name_entry.get()
         arrival_time = arrival_time_entry.get()
@@ -148,11 +182,7 @@ def show_widgets(event):
                 }
             )
         process_number_label.config(text='Process #{}'.format(count))
-        process_name_entry.delete(0, 'end')
-        arrival_time_entry.delete(0, 'end')
-        burst_time_entry.delete(0, 'end')
-        if selected_algorithm.get() == "Priority Non Preemptive" or selected_algorithm.get() == "Priority Preemptive":
-            priority_entry.delete(0, 'end')
+        clearInputEntries()
 
         # Testing that process fields are stored in process_details list
         print(process_details)
@@ -166,9 +196,23 @@ def show_widgets(event):
         global process_number
         global time_quantum
         process_number = process_number_entry.get()
-        process_number = int(process_number)
         if selected_algorithm.get() == "Round Robin":
             time_quantum = time_quantum_entry.get()
+        if not process_number.isdigit():
+            response = messagebox.showerror("Error", "Number of processes must be integer.")
+            if response == 'ok':
+                process_number_entry.delete(0, 'end')
+                if selected_algorithm.get() == "Round Robin":
+                    time_quantum_entry.delete(0, 'end')
+                return
+        elif selected_algorithm.get() == "Round Robin":
+            if not time_quantum.isdigit():
+                response = messagebox.showerror("Error", "Enter a positive number for the time quantum.")
+                if response == 'ok':
+                    process_number_entry.delete(0, 'end')
+                    time_quantum_entry.delete(0, 'end')
+                    return
+        process_number = int(process_number)
         process_frame.pack_forget()
         process_frame.destroy()
         process_details_widgets()
