@@ -21,11 +21,16 @@ def handle_priority(processes,time_line_processes,x_ticks,processes_times, i, bu
     else:
         x_ticks[len(x_ticks) - 1] += 1
 
-    # check if the process has been finished to calculate waiting time
+    # calculate waiting time
+    for i in range(1, len(processes)):
+        if processes[i]['arrival_time'] == 0:
+            for p in processes_times:
+                if p['name'] == processes[i]['name']:
+                    p['waiting_time'] += 1
+                    break
+
+    # if the process has finished
     if prev['burst_time'] == 0:
-        for p in processes_times:
-            if p['name'] == prev['name']:
-                p['turn_arround_time'] = (burst_total - i + 1) - p['arrival_time']
         processes.pop(0)
     
 
@@ -49,7 +54,6 @@ def priority_p(processes):
             'name': process['name'],
             'arrival_time': process['arrival_time'],
             'burst_time': process['burst_time'],
-            'turn_arround_time': 0,
             'waiting_time': 0
         }
         processes_times.append(p)
@@ -72,7 +76,6 @@ def priority_p(processes):
 
     total_waiting_time = 0
     for p in processes_times:
-        p['waiting_time'] = p['turn_arround_time'] - p['burst_time']
         total_waiting_time += p['waiting_time']
 
     

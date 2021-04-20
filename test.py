@@ -37,7 +37,7 @@ negative_waiting_time = [{'name': 'sasa', 'arrival_time': 1, 'burst_time': 2, 'p
 print(*priority_np([p1, p2, p3, p4, p5, p6, p7]))
 
 # priority preemptive
-# print(*priority_p([p1, p2, p3, p4, p5, p6, p7]))
+# print(*priority_p(negative_waiting_time))
 
 # FCFS
 #print(*FCFS([p1, p2, p3, p4, p5, p6, p7]))
