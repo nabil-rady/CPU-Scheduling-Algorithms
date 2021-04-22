@@ -1,6 +1,6 @@
 import numpy as np
 
-def handle_priority(processes,time_line_processes,x_ticks,processes_times, i, burst_total):
+def handle_priority(processes,time_line_processes,x_ticks,processes_times):
     # check if the first arrival is not 0
     if len(x_ticks) == 1 and x_ticks[0] > 0:
         for i in range(len(processes)):
@@ -67,10 +67,10 @@ def priority_p(processes):
     i = 0
     for counter in range(n):
         i += processes[counter]['burst_time']
-    burst_total = i
+    
 
     while i > 0:
-        processes = handle_priority(processes,time_line_processes,x_ticks,processes_times, i, burst_total)
+        processes = handle_priority(processes,time_line_processes,x_ticks,processes_times)
         i-=1
 
 
