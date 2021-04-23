@@ -50,9 +50,9 @@ def gantt_chart(processes, x_ticks):
                 start = process_start['start'] 
                 break
         # gnt.broken_barh([(x_ticks[i], x_ticks[i + 1]-x_ticks[i])], (0.5*(start-len(processes_names)/20), len(processes_names)/20), color = facecolors[i], label='p'+str(i+1))
-        gnt.broken_barh([(x_ticks[i], x_ticks[i + 1]-x_ticks[i])],(1.5,1), color = facecolors[i], label=processes[i])
+        gnt.broken_barh([(x_ticks[i], x_ticks[i + 1]-x_ticks[i])],(0.75,0.5), color = facecolors[i], label=processes[i])
         # plt.legend(facecolors[i],labels='p'+str(i+1))
-        plt.legend(loc='lower right')
+        plt.legend(loc='upper right')
     # gnt.set_yticklabels(processes_names)
     print(processes)
     plt.show()
