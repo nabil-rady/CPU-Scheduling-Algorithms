@@ -3,6 +3,8 @@ from algorithms.priority_np import priority_np
 from algorithms.priority_p import priority_p
 from algorithms.FCFS import FCFS
 from gantt_chart import gantt_chart
+from algorithms.SJF_np import SJF
+from algorithms.SJF import SJF_P
 
 import tkinter as tk
 from tkinter import messagebox
@@ -23,11 +25,12 @@ scheduling_algorithms = [
 
 algorithm_functions = {
     "First-Come, First-Served" : FCFS,
-    "Shorted-Job-First Preemptive" : None,
-    "Shorted-Job-First Non Preemptive" : None,
+    "Shorted-Job-First Preemptive" : SJF_P,
+    "Shorted-Job-First Non Preemptive" : SJF,
     "Round Robin" : roundrobin,
     "Priority Preemptive" : priority_p,
     "Priority Non Preemptive" : priority_np,
+    
 }
 
 # This list will contain widgets to be deleted

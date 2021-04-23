@@ -43,7 +43,7 @@ def handle_SJF(processes,time_line_processes,x_ticks,processes_times):
     return processes
 
 
-def SJF(processes): 
+def SJF_P(processes): 
     for i in range(len(processes)):
         processes[i] = processes[i].copy()   
     time_line_processes = []

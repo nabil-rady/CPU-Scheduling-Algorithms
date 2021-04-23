@@ -33,10 +33,11 @@ def gantt_chart(processes, x_ticks):
     # Setting labels for x-axis and y-axis
     gnt.set_xlabel('Time')
     gnt.set_ylabel('Processes line')
-    
+    gnt.set_ylim(0, 3)
     # Setting ticks on x-axis
     gnt.set_xticks([2*i for i in range(max(x_ticks) + 4)])
-    gnt.set_yticks([0.5 * i for i in range(1,len(processes_names)+ 1)])
+    # gnt.set_yticks([0.5 * i for i in range(1,len(processes_names)+ 1)])
+    gnt.set_yticks([1,2,3])
     # Setting graph attribute
     gnt.grid(True)
 
@@ -48,6 +49,10 @@ def gantt_chart(processes, x_ticks):
             if process_start['name'] == processes[i]:
                 start = process_start['start'] 
                 break
-        gnt.broken_barh([(x_ticks[i], x_ticks[i + 1]-x_ticks[i])], (0.5*(start-len(processes_names)/20), len(processes_names)/20), facecolors = facecolors[i], label=processes)
-    gnt.set_yticklabels(processes_names)
+        # gnt.broken_barh([(x_ticks[i], x_ticks[i + 1]-x_ticks[i])], (0.5*(start-len(processes_names)/20), len(processes_names)/20), color = facecolors[i], label='p'+str(i+1))
+        gnt.broken_barh([(x_ticks[i], x_ticks[i + 1]-x_ticks[i])],(1.5,1), color = facecolors[i], label=processes[i])
+        # plt.legend(facecolors[i],labels='p'+str(i+1))
+        plt.legend(loc='lower right')
+    # gnt.set_yticklabels(processes_names)
+    print(processes)
     plt.show()
